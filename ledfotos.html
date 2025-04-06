@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Momentos com Você 💞</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #fdf0f5;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      padding: 30px;
+      color: #444;
+    }
+
+    h1 {
+      color: #e91e63;
+      margin-bottom: 20px;
+    }
+
+    .carrossel-container {
+      position: relative;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .imagem {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .mensagem {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #555;
+      min-height: 60px;
+    }
+
+    .botoes {
+      margin-top: 20px;
+    }
+
+    button {
+      background-color: #e91e63;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #d81b60;
+    }
+  </style>
+</head>
+<body>
+  <h1>Momentos com Você 💫</h1>
+
+  <div class="carrossel-container">
+    <img id="foto" class="imagem" src="img/1.jpg" alt="Foto especial">
+    <div class="mensagem" id="mensagem">Essa era uma das minhas visões favoritas: você dormindo em paz 💭💖</div>
+  </div>
+
+  <div class="botoes">
+    <button onclick="alternarPausa()" id="botaoPause">⏸ Pausar</button>
+  </div>
+
+  <script>
+    const fotos = [
+      { src: "img/1.jpg", texto: "Essa era uma das minhas visões favoritas: você dormindo em paz 💭💖" },
+      { src: "img/2.jpg", texto: "Essa foto me lembra como seu sorriso me dava forças mesmo nos piores dias 😊❤️" },
+      { src: "img/3.jpg", texto: "A gente bobo junto era a melhor versão de nós 🫶" },
+      { src: "img/4.jpg", texto: "Esse momento foi tão simples, mas eu me sentia o homem mais feliz do mundo com você ali." },
+      { src: "img/5.jpg", texto: "Você sempre foi a minha paz, minha inspiração, minha casa. 🏠💕" },
+      { src: "img/6.jpg", texto: "Por mais que o tempo passe... esses momentos vivem em mim. 💘" }
+    ];
+
+    let index = 0;
+    let pausado = false;
+    let intervalo = setInterval(proximaImagem, 5000);
+
+    function proximaImagem() {
+      if (!pausado) {
+        index = (index + 1) % fotos.length;
+        document.getElementById("foto").src = fotos[index].src;
+        document.getElementById("mensagem").textContent = fotos[index].texto;
+      }
+    }
+
+    function alternarPausa() {
+      pausado = !pausado;
+      const botao = document.getElementById("botaoPause");
+      botao.textContent = pausado ? "▶ Continuar" : "⏸ Pausar";
+    }
+  </script>
+</body>
+</html>

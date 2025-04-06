@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Qual é minha foto favorita sua? 💖</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff0f5;
+      text-align: center;
+      padding: 30px;
+      color: #333;
+    }
+
+    h1 {
+      color: #e91e63;
+      margin-bottom: 20px;
+    }
+
+    .fotos {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .fotos img {
+      width: 200px;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .fotos img:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <h1>Qual dessas é a minha favorita sua? 😍</h1>
+  <p>Escolhe com carinho... 💭</p>
+
+  <div class="fotos">
+    <img src="foto-fav/1.jpg" alt="Foto 1" onclick="respostaErrada()">
+    <img src="foto-fav/2.jpg" alt="Foto 2" onclick="respostaCerta()">
+    <img src="foto-fav/3.jpg" alt="Foto 3" onclick="respostaErrada()">
+  </div>
+
+  <script>
+    function respostaCerta() {
+      alert("Você acertou, meu bem ❤️ Essa é a minha favorita!");
+      window.location.href = "ledfotos.html";
+    }
+
+    function respostaErrada() {
+      alert("Hmm... linda como sempre, mas essa não é a minha favorita 😅 Tenta de novo!");
+    }
+  </script>
+</body>
+</html>

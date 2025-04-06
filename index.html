@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Um último "eu te amo" 💔</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fce4ec;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      max-width: 400px;
+    }
+
+    h1 {
+      color: #e91e63;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 100%;
+      margin: 15px 0;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+    }
+
+    button {
+      background-color: #e91e63;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+
+    button:hover {
+      background-color: #d81b60;
+    }
+
+    #mensagem-erro {
+      margin-top: 10px;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Antes de tudo...</h1>
+    <p>Digite a data que mudou tudo. ❤️</p>
+
+    <form onsubmit="verificarSenha(event)">
+      <input type="text" id="senha" placeholder="DD/MM/AAAA" maxlength="10" oninput="formatarData(this)">
+      <button type="submit">Entrar</button>
+      <p id="mensagem-erro"></p>
+    </form>
+  </div>
+
+  <script>
+    function verificarSenha(event) {
+      event.preventDefault();
+      const senha = document.getElementById('senha').value.trim();
+      const mensagemErro = document.getElementById('mensagem-erro');
+
+      if (senha === "29/09/2018") {
+        window.location.href = "brincadeira.html";
+      } else {
+        mensagemErro.textContent = "Essa não é a data... tenta de novo, com carinho. 💔";
+      }
+    }
+
+    function formatarData(campo) {
+      let valor = campo.value.replace(/\D/g, ''); // Remove tudo que não for número
+      if (valor.length > 2) valor = valor.slice(0,2) + '/' + valor.slice(2);
+      if (valor.length > 5) valor = valor.slice(0,5) + '/' + valor.slice(5);
+      campo.value = valor;
+    }
+  </script>
+</body>
+</html>
