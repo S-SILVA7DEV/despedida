@@ -7,124 +7,99 @@
   <link rel="stylesheet" href="style.css">
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #fce4ec;
+      background-color: #ffe4ec;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
       margin: 0;
     }
 
-    .pagina {
-      display: none;
-      padding: 30px;
-      text-align: center;
-    }
-
-    .ativa {
-      display: block;
-    }
-
     .container {
-      background-color: #fff;
+      background-color: white;
       padding: 40px;
-      border-radius: 20px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      width: 90%;
       max-width: 400px;
-      margin: 60px auto;
     }
 
-    button, .link-btn {
+    h1 {
+      font-size: 1.6em;
+      margin-bottom: 10px;
+      color: #e91e63;
+    }
+
+    p {
+      margin-bottom: 20px;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 1em;
+      width: 100%;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-sizing: border-box;
+    }
+
+    button {
+      padding: 10px 20px;
       background-color: #e91e63;
       color: white;
       border: none;
-      padding: 12px 20px;
-      border-radius: 30px;
+      border-radius: 20px;
       cursor: pointer;
       font-size: 1em;
-      margin-top: 20px;
+      width: 100%;
     }
 
-    .link-btn {
-      display: inline-block;
-      text-decoration: none;
-    }
-
-    button:hover, .link-btn:hover {
+    button:hover {
       background-color: #d81b60;
     }
 
-    .fotos, .momentos {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
+    #mensagem-erro {
+      color: red;
+      margin-top: 10px;
+      font-size: 0.9em;
     }
 
-    .fotos img, .momentos img {
-      width: 200px;
-      height: 260px;
-      object-fit: cover;
-      border-radius: 15px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    .fotos img:hover {
-      transform: scale(1.05);
-    }
-
-    .mensagem {
-      font-size: 1.2em;
-      color: #555;
-      margin: 20px 0;
-    }
-
-    .carrossel img {
-      max-width: 500px;
-      height: 400px;
-      object-fit: cover;
-      border-radius: 20px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    audio {
-      display: none;
-    }
-
-    #botaoMusica {
-      position: fixed;
-      bottom: 10px;
-      right: 10px;
-      z-index: 999;
+    @media (max-width: 600px) {
+      .container {
+        padding: 25px;
+      }
     }
   </style>
 </head>
 <body>
-
-  <!-- Música -->
-  <audio id="musica" loop>
-    <source src="musica/te-esperando.mp3" type="audio/mpeg">
-    Seu navegador não suporta áudio.
-  </audio>
-  <button onclick="alternarMusica()" id="botaoMusica">Pausar Música</button>
-
-  <!-- Página senha -->
-  <div class="pagina ativa" id="pagina-senha">
-    <div class="container">
-      <h1>Antes de tudo...</h1>
-      <p>Digite a data que mudou tudo. ❤️</p>
-      <input type="text" id="senha" placeholder="DD/MM/AAAA" maxlength="10" oninput="formatarData(this)">
-      <p id="mensagem-erro" style="color: red;"></p>
-      <button onclick="verificarSenha()">Entrar</button>
-    </div>
+  <div class="container">
+    <h1>Antes de seguir...</h1>
+    <p>Qual foi a data que deu início ao nosso "pra sempre"?</p>
+    <input type="text" id="senha" placeholder="DD/MM/AAAA" maxlength="10" oninput="formatarData(this)">
+    <p id="mensagem-erro"></p>
+    <button onclick="verificarSenha()">Continuar</button>
   </div>
 
-  <!-- Brincadeira -->
-  <div class="pagina" id="pagina-brincadeira">
-    <h1>Qual dessas é a minha favorita sua? 😍</h1>
-    <p>Escolhe com carinho... 💭</p>
-    <div class="fotos">
-      <img src="foto-fav/1.jpg" onclick="respostaErrada()">
-      <img src="foto-fav/2.jpg" onclick="respostaCerta()">
-      <img src="foto-fav/3.jpg" onclick="respostaErrada()">
-    </div>
-  </div>
+  <script>
+    function formatarData(campo) {
+      let valor = campo.value.replace(/\D/g, '');
+      if (valor.length > 2) valor = valor.slice(0,2) + '/' + valor.slice(2);
+      if (valor.length > 5) valor = valor.slice(0,5) + '/' + valor.slice(5);
+      campo.value = valor;
+    }
+
+    function verificarSenha() {
+      const senha = document.getElementById("senha").value;
+      const erro = document.getElementById("mensagem-erro");
+      if (senha === "29/09/2018") {
+        window.location.href = "favorita.html";
+      } else {
+        erro.textContent = "Essa data não abriu só uma história... ela abriu meu coração. Tenta de novo com carinho. 💔";
+      }
+    }
+  </script>
+</body>
+</html>

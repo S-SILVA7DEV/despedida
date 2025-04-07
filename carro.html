@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Momentos com Você</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #fff0f5;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 30px 20px;
+      margin: 0;
+      text-align: center;
+    }
+
+    h1 {
+      color: #e91e63;
+      font-size: 1.8em;
+      margin-bottom: 20px;
+    }
+
+    .carrossel {
+      max-width: 90%;
+      margin-bottom: 20px;
+    }
+
+    .carrossel img {
+      width: 100%;
+      max-width: 320px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .mensagem {
+      margin-top: 15px;
+      font-size: 1em;
+      color: #444;
+    }
+
+    #botaoPause {
+      margin-top: 20px;
+      background-color: #e91e63;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+
+    #botaoPause:hover {
+      background-color: #d81b60;
+    }
+
+    a {
+      margin-top: 30px;
+      display: inline-block;
+      text-decoration: none;
+      background-color: #e91e63;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 1em;
+    }
+
+    a:hover {
+      background-color: #d81b60;
+    }
+
+    @media (max-width: 600px) {
+      .carrossel img {
+        max-width: 280px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Momentos com Você 💫</h1>
+
+  <div class="carrossel">
+    <img id="foto" src="carrossel/deitada1.jpeg" alt="Foto especial">
+    <div class="mensagem" id="mensagem">
+      Essa era uma das minhas visões favoritas: você dormindo em paz 💭💖
+    </div>
+  </div>
+
+  <button id="botaoPause" onclick="alternarPausa()">⏸ Pausar</button>
+
+  <a href="carta.html">Ir para a próxima página 💌</a>
+
+  <script>
+    const imagens = [
+      { src: "carrossel/deitada1.jpeg", msg: "Essa era uma das minhas visões favoritas: você dormindo em paz 💭💖" },
+      { src: "carrossel/sorriso.jpeg", msg: "Seu sorriso... era o meu ponto de paz. Até nos dias mais difíceis. 😊❤️" },
+      { src: "carrossel/print.jpg", msg: "A gente bobo junto era a nossa essência. E eu amava cada segundo disso. 🫶" },
+      { src: "carrossel/shopping.jpg", msg: "Um dia comum, um passeio qualquer... e eu só pensava: sou o cara mais sortudo do mundo." },
+      { src: "carrossel/ult.jpg", msg: "Mesmo que tudo mude... esses momentos vivem em mim. 💘" }
+    ];
+
+    let index = 0;
+    let pausado = false;
+
+    function mostrarImagem() {
+      if (!pausado) {
+        index = (index + 1) % imagens.length;
+        document.getElementById("foto").src = imagens[index].src;
+        document.getElementById("mensagem").textContent = imagens[index].msg;
+      }
+    }
+
+    setInterval(mostrarImagem, 5000);
+
+    function alternarPausa() {
+      pausado = !pausado;
+      document.getElementById("botaoPause").textContent = pausado ? "▶ Continuar" : "⏸ Pausar";
+    }
+  </script>
+
+</body>
+</html>

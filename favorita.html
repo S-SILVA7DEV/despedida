@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Qual é a minha favorita?</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #fff0f5;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 30px 20px;
+      margin: 0;
+      text-align: center;
+    }
+
+    h1 {
+      color: #e91e63;
+      font-size: 1.8em;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #333;
+      font-size: 1em;
+      margin-bottom: 20px;
+    }
+
+    .fotos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    .fotos img {
+      width: 100px;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .fotos img:hover {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 600px) {
+      .fotos img {
+        width: 90px;
+        height: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Qual dessas é a minha favorita sua? 😍</h1>
+  <p>Escolhe com carinho...</p>
+
+  <div class="fotos">
+    <img src="foto-fav/1.jpg" alt="Foto 1" onclick="respostaErrada()">
+    <img src="foto-fav/2.jpg" alt="Foto 2" onclick="respostaCerta()">
+    <img src="foto-fav/3.jpg" alt="Foto 3" onclick="respostaErrada()">
+  </div>
+
+  <script>
+    function haha() {
+      alert("Acertou ❤️ Essa foto foi a minha Fvorita");
+      window.location.href = "carro.html";
+    }
+
+    function respostaErrada() {
+      alert("Linda como sempre... mas essa não era essa. Tenta de novo 🫣");
+    }
+  </script>
+</body>
+</html>
