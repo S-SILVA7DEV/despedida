@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nossos Momentos</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      background-color: #fff0f5;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #e91e63;
+      font-size: 1.6em;
+      margin-bottom: 20px;
+    }
+
+    .carrossel {
+      width: 100%;
+      max-width: 320px;
+      position: relative;
+    }
+
+    .foto {
+      width: 100%;
+      height: auto;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .mensagem {
+      margin-top: 15px;
+      color: #333;
+      font-size: 1em;
+      min-height: 60px;
+    }
+
+    .botoes {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    button {
+      background-color: #e91e63;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-size: 0.9em;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #c2185b;
+    }
+
+    a {
+      margin-top: 25px;
+      display: inline-block;
+      color: #e91e63;
+      font-weight: bold;
+      text-decoration: none;
+      font-size: 1em;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Alguns momentos nossos...</h1>
+
+  <div class="carrossel">
+    <img id="foto" class="foto" src="carrossel/sorriso.jpeg" alt="Momento 1">
+    <p id="mensagem" class="mensagem">Aquele sorriso... parecia que o mundo parava só pra eu te olhar.</p>
+  </div>
+
+  <div class="botoes">
+    <button onclick="voltar()">⏮️</button>
+    <button onclick="pausarOuRetomar()" id="pauseBtn">⏸️</button>
+    <button onclick="proximo()">⏭️</button>
+  </div>
+
+  <a href="galeria.html">Seguir para a carta final ✉️</a>
+
+  <script>
+    const fotos = [
+      { src: "momentos/ela-sorrindo.jpg", msg: "Aquele sorriso... parecia que o mundo parava só pra eu te olhar." },
+      { src: "momentos/primeira-foto.jpg", msg: "Nossa segunda foto juntos... eu lembro do frio na barriga.." },
+      { src: "momentos/olhar.jpg", msg: "Seus olhos sempre foram meu lugar favorito." },
+      { src: "momentos/linda.jpg", msg: "Essa foto... você tão linda, tão você. E eu ali, amando em silêncio." }
+    ];
+
+    let atual = 0;
+    let rodando = true;
+    let intervalo = setInterval(proximo, 4000);
+
+    function mostrarFoto(index) {
+      const foto = document.getElementById('foto');
+      const mensagem = document.getElementById('mensagem');
+      foto.src = fotos[index].src;
+      mensagem.textContent = fotos[index].msg;
+    }
+
+    function proximo() {
+      atual = (atual + 1) % fotos.length;
+      mostrarFoto(atual);
+    }
+
+    function voltar() {
+      atual = (atual - 1 + fotos.length) % fotos.length;
+      mostrarFoto(atual);
+    }
+
+    function pausarOuRetomar() {
+      const btn = document.getElementById('pauseBtn');
+      if (rodando) {
+        clearInterval(intervalo);
+        rodando = false;
+        btn.textContent = '▶️';
+      } else {
+        intervalo = setInterval(proximo, 4000);
+        rodando = true;
+        btn.textContent = '⏸️';
+      }
+    }
+  </script>
+</body>
+</html>
