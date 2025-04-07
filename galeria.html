@@ -58,7 +58,7 @@
     <div class="slide" style="background-image: url('foto/10.jpg');"></div>
   </div>
 
-  <audio autoplay loop>
+  <audio autoplay>
     <source src="musica/te-esperando.mp3" type="audio/mp3">
     Seu navegador não suporta áudio.
   </audio>
@@ -66,12 +66,21 @@
   <script>
     const slides = document.querySelectorAll('.slide');
     let current = 0;
+    const tempoPorSlide = 4000;
 
-    setInterval(() => {
+    function mostrarProximoSlide() {
       slides[current].classList.remove('active');
-      current = (current + 1) % slides.length;
-      slides[current].classList.add('active');
-    }, 4000); // muda a cada 4 segundos
+      current++;
+
+      if (current < slides.length) {
+        slides[current].classList.add('active');
+        setTimeout(mostrarProximoSlide, tempoPorSlide);
+      } else {
+        window.location.href = "carta.html"; // redireciona para a carta final
+      }
+    }
+
+    setTimeout(mostrarProximoSlide, tempoPorSlide);
   </script>
 
 </body>
