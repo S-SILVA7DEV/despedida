@@ -1,44 +1,75 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Um último "eu te amo" 💔</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Um último "eu te amo"</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #fce4ec;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    section {
+      display: none;
+      padding: 40px 20px;
       text-align: center;
     }
-
+    section.ativa {
+      display: block;
+      animation: fadeIn 1s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
     .container {
       background-color: #fff;
       padding: 40px;
       border-radius: 20px;
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
       max-width: 400px;
+      margin: auto;
     }
-
-    h1 {
-      color: #e91e63;
+    .fotos, .carrossel-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
     }
-
-    input[type="text"] {
-      padding: 10px;
-      width: 100%;
-      margin: 15px 0;
-      border-radius: 10px;
-      border: 1px solid #ccc;
-      font-size: 1em;
+    .fotos img, .carrossel-container img {
+      width: 200px;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
     }
-
-    button {
+    .mensagem {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #555;
+    }
+    .momento {
+      background: #ffe0eb;
+      padding: 20px;
+      border-radius: 20px;
+      max-width: 600px;
+      margin: 20px auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .momento img {
+      max-width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    button, .botao {
       background-color: #e91e63;
       color: white;
       border: none;
@@ -46,48 +77,139 @@
       border-radius: 30px;
       cursor: pointer;
       font-size: 1em;
+      margin-top: 20px;
+      text-decoration: none;
+      display: inline-block;
     }
-
-    button:hover {
+    button:hover, .botao:hover {
       background-color: #d81b60;
     }
-
-    #mensagem-erro {
-      margin-top: 10px;
-      color: red;
+    audio {
+      display: none;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Antes de tudo...</h1>
-    <p>Digite a data que mudou tudo. ❤️</p>
+  <!-- Música tocando em segundo plano -->
+  <audio autoplay loop id="musica">
+    <source src="musica/te-esperando.mp3" type="audio/mpeg">
+    Seu navegador não suporta áudio.
+  </audio>
 
-    <form onsubmit="verificarSenha(event)">
+  <!-- Tela de senha -->
+  <section id="senha-section" class="ativa">
+    <div class="container">
+      <h1>Antes de tudo...</h1>
+      <p>Digite a data que mudou tudo. ❤️</p>
       <input type="text" id="senha" placeholder="DD/MM/AAAA" maxlength="10" oninput="formatarData(this)">
-      <button type="submit">Entrar</button>
-      <p id="mensagem-erro"></p>
-    </form>
-  </div>
+      <button onclick="verificarSenha()">Entrar</button>
+      <p id="mensagem-erro" style="color: red;"></p>
+    </div>
+  </section>
+
+  <!-- Brincadeira com fotos -->
+  <section id="brincadeira-section">
+    <h1>Qual dessas é a minha favorita sua? 😍</h1>
+    <p>Escolhe com carinho... 💭</p>
+    <div class="fotos">
+      <img src="foto-fav/1.jpg" onclick="respostaErrada()">
+      <img src="foto-fav/2.jpg" onclick="respostaCerta()">
+      <img src="foto-fav/3.jpg" onclick="respostaErrada()">
+    </div>
+  </section>
+
+  <!-- Carrossel -->
+  <section id="carrossel-section">
+    <h1>Momentos com Você 💫</h1>
+    <div class="carrossel-container">
+      <img id="foto" src="carrossel/deitada1.jpeg" alt="Foto especial">
+      <div class="mensagem" id="mensagem">Essa era uma das minhas visões favoritas: você dormindo em paz 💭💖</div>
+      <button onclick="alternarPausa()" id="botaoPause">⏸ Pausar</button>
+    </div>
+    <button onclick="mostrar('momentos-section')">Ver mais</button>
+  </section>
+
+  <!-- Linha do tempo -->
+  <section id="momentos-section">
+    <h1>✨ Alguns Momentos que Nunca Esqueci ✨</h1>
+    <div class="momento">
+      <img src="momentos/primeira-foto.jpg">
+      <h2>Nosso primeiro encontro</h2>
+      <p>Aquele dia parecia tão simples… mas foi quando meu coração te escolheu...</p>
+    </div>
+    <div class="momento">
+      <img src="momentos/primeira-foto2.jpg">
+      <h2>Nosso primeiro encontro (de novo)</h2>
+      <p>Porque foi ali que tudo começou. É estranho repetir, mas foi mesmo tão especial...</p>
+    </div>
+    <div class="momento">
+      <img src="momentos/ela-sorrindo.jpg">
+      <h2>Quando você sorriu daquele jeitinho...</h2>
+      <p>Ah, aquele sorriso… foi ali que eu me apaixonei...</p>
+    </div>
+    <a class="botao" onclick="mostrar('carta-section')">Ler minha última carta 💌</a>
+  </section>
+
+  <!-- Carta final -->
+  <section id="carta-section">
+    <h1>Minha última carta pra você 💌</h1>
+    <p style="max-width: 600px; margin: auto;">(Aqui você pode escrever a carta final com todo seu coração... 💔)</p>
+  </section>
 
   <script>
-    function verificarSenha(event) {
-      event.preventDefault();
-      const senha = document.getElementById('senha').value.trim();
-      const mensagemErro = document.getElementById('mensagem-erro');
-
-      if (senha === "29/09/2018") {
-        window.location.href = "brincadeira.html";
-      } else {
-        mensagemErro.textContent = "Essa não é a data... tenta de novo, com carinho. 💔";
-      }
-    }
-
     function formatarData(campo) {
-      let valor = campo.value.replace(/\D/g, ''); // Remove tudo que não for número
+      let valor = campo.value.replace(/\D/g, '');
       if (valor.length > 2) valor = valor.slice(0,2) + '/' + valor.slice(2);
       if (valor.length > 5) valor = valor.slice(0,5) + '/' + valor.slice(5);
       campo.value = valor;
+    }
+
+    function verificarSenha() {
+      const senha = document.getElementById('senha').value.trim();
+      if (senha === "29/09/2018") {
+        mostrar('brincadeira-section');
+      } else {
+        document.getElementById('mensagem-erro').textContent = "Essa não é a data... tenta de novo, com carinho. 💔";
+      }
+    }
+
+    function mostrar(id) {
+      document.querySelectorAll('section').forEach(sec => sec.classList.remove('ativa'));
+      document.getElementById(id).classList.add('ativa');
+    }
+
+    function respostaCerta() {
+      alert("Você acertou, meu bem ❤️ Essa é a minha favorita!");
+      mostrar('carrossel-section');
+    }
+
+    function respostaErrada() {
+      alert("Hmm... linda como sempre, mas essa não é a minha favorita 😅 Tenta de novo!");
+    }
+
+    const fotos = [
+      { src: "carrossel/deitada1.jpeg", texto: "Essa era uma das minhas visões favoritas: você dormindo em paz 💭💖" },
+      { src: "carrossel/sorriso.jpeg", texto: "Essa foto me lembra como seu sorriso me dava forças..." },
+      { src: "carrossel/print.jpg", texto: "A gente bobo junto era a melhor versão de nós 🫶" },
+      { src: "carrossel/shopping.jpg", texto: "Esse momento foi tão simples, mas eu me sentia o homem mais feliz..." },
+      { src: "carrossel/ult.jpg", texto: "Por mais que o tempo passe... esses momentos vivem em mim. 💘" }
+    ];
+
+    let index = 0;
+    let pausado = false;
+    let intervalo = setInterval(proximaImagem, 5000);
+
+    function proximaImagem() {
+      if (!pausado) {
+        index = (index + 1) % fotos.length;
+        document.getElementById("foto").src = fotos[index].src;
+        document.getElementById("mensagem").textContent = fotos[index].texto;
+      }
+    }
+
+    function alternarPausa() {
+      pausado = !pausado;
+      document.getElementById("botaoPause").textContent = pausado ? "▶ Continuar" : "⏸ Pausar";
     }
   </script>
 </body>
