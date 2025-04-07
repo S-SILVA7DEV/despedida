@@ -87,22 +87,27 @@
     }
 
     audio {
+      display: none;
+    }
+
+    #botaoMusica {
       position: fixed;
       bottom: 10px;
-      left: 10px;
+      right: 10px;
       z-index: 999;
     }
   </style>
 </head>
 <body>
-  <!-- Música de fundo -->
+
+  <!-- Música -->
   <audio id="musica" loop>
-    <source src="musica/te-esperando.mp3" type="audio/mp3">
+    <source src="musica/te-esperando.mp3" type="audio/mpeg">
     Seu navegador não suporta áudio.
   </audio>
-  <button onclick="alternarMusica()" style="position: fixed; bottom: 10px; right: 10px; z-index: 999;">Tocar Música</button>
+  <button onclick="alternarMusica()" id="botaoMusica">Pausar Música</button>
 
-  <!-- Tela de senha -->
+  <!-- Página senha -->
   <div class="pagina ativa" id="pagina-senha">
     <div class="container">
       <h1>Antes de tudo...</h1>
@@ -123,110 +128,3 @@
       <img src="foto-fav/3.jpg" onclick="respostaErrada()">
     </div>
   </div>
-
-  <!-- Carrossel -->
-  <div class="pagina" id="pagina-carrossel">
-    <h1>Momentos com Você 💫</h1>
-    <div class="carrossel">
-      <img id="fotoCarrossel" src="carrossel/deitada1.jpeg">
-      <div class="mensagem" id="mensagemCarrossel">Essa era uma das minhas visões favoritas: você dormindo em paz 💭💖</div>
-    </div>
-    <button onclick="alternarPausa()" id="botaoPause">⏸ Pausar</button>
-  </div>
-
-  <!-- Momentos Especiais -->
-  <div class="pagina" id="pagina-momentos">
-    <h1>✨ Alguns Momentos que Nunca Esqueci ✨</h1>
-    <div class="momentos">
-      <div>
-        <img src="momentos/primeira-foto.jpg">
-        <p><strong>Nosso primeiro encontro</strong><br>Aquele dia parecia tão simples… mas foi quando meu coração te escolheu.</p>
-      </div>
-      <div>
-        <img src="momentos/ela-sorrindo.jpg">
-        <p><strong>Quando você sorriu daquele jeitinho...</strong><br>Aquele sorriso... foi ali que eu me apaixonei.</p>
-      </div>
-    </div>
-    <a class="link-btn" href="#" onclick="mostrarPagina('pagina-carta')">Ler minha última carta 💌</a>
-  </div>
-
-  <!-- Carta Final -->
-  <div class="pagina" id="pagina-carta">
-    <h1>Minha última carta 💌</h1>
-    <p style="max-width: 600px; margin: auto;">Essa é minha forma de dizer um último "eu te amo", mesmo que silenciosamente. Obrigado por tudo que você foi pra mim...</p>
-  </div>
-
-  <script>
-    const paginas = ["pagina-senha", "pagina-brincadeira", "pagina-carrossel", "pagina-momentos", "pagina-carta"];
-    function mostrarPagina(id) {
-      paginas.forEach(p => document.getElementById(p).classList.remove("ativa"));
-      document.getElementById(id).classList.add("ativa");
-    }
-
-    function verificarSenha() {
-      const senha = document.getElementById("senha").value;
-      if (senha === "29/09/2018") {
-        const audio = document.getElementById("musica");
-        audio.play().then(() => {
-          document.querySelector('button[onclick="alternarMusica()"]').textContent = "Pausar Música";
-        }).catch((e) => {
-          console.warn("Autoplay bloqueado. Música tocará após nova interação.");
-        });
-        mostrarPagina("pagina-brincadeira");
-      } else {
-        document.getElementById("mensagem-erro").textContent = "Essa não é a data... tenta de novo, com carinho. 💔";
-      }
-    }
-
-    function respostaCerta() {
-      alert("Você acertou, meu bem ❤️ Essa é a minha favorita!");
-      mostrarPagina("pagina-carrossel");
-    }
-
-    function respostaErrada() {
-      alert("Hmm... linda como sempre, mas essa não é a minha favorita 😅 Tenta de novo!");
-    }
-
-    function formatarData(campo) {
-      let valor = campo.value.replace(/\D/g, '');
-      if (valor.length > 2) valor = valor.slice(0,2) + '/' + valor.slice(2);
-      if (valor.length > 5) valor = valor.slice(0,5) + '/' + valor.slice(5);
-      campo.value = valor;
-    }
-
-    // Carrossel automático
-    const fotos = [
-      { src: "carrossel/deitada1.jpeg", texto: "Essa era uma das minhas visões favoritas: você dormindo em paz 💭💖" },
-      { src: "carrossel/sorriso.jpeg", texto: "Essa foto me lembra como seu sorriso me dava forças mesmo nos piores dias 😊❤️" },
-      { src: "carrossel/print.jpg", texto: "A gente bobo junto era a melhor versão de nós 🫶" },
-      { src: "carrossel/shopping.jpg", texto: "Esse momento foi tão simples, mas eu me sentia o homem mais feliz do mundo com você ali." },
-      { src: "carrossel/ult.jpg", texto: "Por mais que o tempo passe... esses momentos vivem em mim. 💘" }
-    ];
-    let index = 0;
-    let pausado = false;
-    setInterval(() => {
-      if (!pausado && document.getElementById("pagina-carrossel").classList.contains("ativa")) {
-        index = (index + 1) % fotos.length;
-        document.getElementById("fotoCarrossel").src = fotos[index].src;
-        document.getElementById("mensagemCarrossel").textContent = fotos[index].texto;
-      }
-    }, 5000);
-
-    function alternarPausa() {
-      pausado = !pausado;
-      document.getElementById("botaoPause").textContent = pausado ? "▶ Continuar" : "⏸ Pausar";
-    }
-
-    function alternarMusica() {
-      const audio = document.getElementById("musica");
-      if (audio.paused) {
-        audio.play();
-        event.target.textContent = "Pausar Música";
-      } else {
-        audio.pause();
-        event.target.textContent = "Tocar Música";
-      }
-    }
-  </script>
-</body>
-</html>
